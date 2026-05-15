@@ -1,3 +1,6 @@
+# index.html
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +49,15 @@ header{
     object-fit:cover;
 }
 
+.logo-area h1{
+    font-size:22px;
+}
+
+.top-buttons{
+    display:flex;
+    gap:10px;
+}
+
 .top-buttons button{
     padding:12px 18px;
     border:none;
@@ -54,6 +66,11 @@ header{
     background:#2563eb;
     color:white;
     font-weight:bold;
+    transition:0.3s;
+}
+
+.top-buttons button:hover{
+    transform:scale(1.05);
 }
 
 .container{
@@ -75,6 +92,7 @@ header{
     color:white;
     cursor:pointer;
     font-weight:bold;
+    transition:0.3s;
 }
 
 .menu-tabs button.active{
@@ -92,13 +110,46 @@ header{
     border:1px solid rgba(255,255,255,0.08);
     border-radius:18px;
     padding:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.customer-box::before{
+    content:'';
+    position:absolute;
+    width:150px;
+    height:150px;
+    background:rgba(37,99,235,0.15);
+    border-radius:50%;
+    top:-60px;
+    right:-60px;
+}
+
+.customer-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.customer-header img{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.customer-details{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:20px;
 }
 
 .detail{
     background:#1a1a1a;
     padding:10px;
     border-radius:10px;
-    margin-top:10px;
 }
 
 .status-buttons{
@@ -110,6 +161,7 @@ header{
 
 .status-buttons button{
     flex:1;
+    min-width:120px;
     padding:12px;
     border:none;
     border-radius:12px;
@@ -130,6 +182,10 @@ header{
     background:#dc2626;
 }
 
+.delete-btn{
+    background:#ef4444;
+}
+
 .modal{
     position:fixed;
     inset:0;
@@ -137,6 +193,7 @@ header{
     display:none;
     justify-content:center;
     align-items:center;
+    z-index:1000;
 }
 
 .modal-content{
@@ -148,6 +205,10 @@ header{
     display:flex;
     flex-direction:column;
     gap:15px;
+}
+
+.modal-content h2{
+    text-align:center;
 }
 
 .modal-content input{
@@ -183,6 +244,7 @@ header{
     display:none;
     justify-content:center;
     align-items:center;
+    z-index:2000;
 }
 
 .confirm-content{
@@ -216,6 +278,23 @@ header{
 
 .confirm-cancel{
     background:#374151;
+}
+
+@media(max-width:700px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .top-buttons{
+        width:100%;
+    }
+
+    .top-buttons button{
+        flex:1;
+    }
+
 }
 
 </style>
@@ -299,12 +378,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA4YxdiAtTJycGPgSmRWt9Iii9gkjvlfuI",
+  authDomain: "chhabra-cards.firebaseapp.com",
+  projectId: "chhabra-cards",
+  storageBucket: "chhabra-cards.firebasestorage.app",
+  messagingSenderId: "427204441564",
+  appId: "1:427204441564:web:f490107f6c2e50d48c4b19",
+  measurementId: "G-6098W7DVN0"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -344,6 +424,10 @@ window.addCustomer = async () => {
         createdAt:Date.now()
     });
 
+    document.getElementById('customerName').value = '';
+    document.getElementById('customerMobile').value = '';
+    document.getElementById('customerPrice').value = '';
+
     closeModal();
 }
 
@@ -367,21 +451,37 @@ function renderCustomers(){
         div.className = 'customer-box';
 
         div.innerHTML = `
-        <h2>${customer.name}</h2>
 
-        <div class="detail">📱 ${customer.mobile}</div>
-        <div class="detail">💰 ₹${customer.price}</div>
-        <div class="detail">🛠 Work Done: ${customer.workDone ? 'Yes' : 'No'}</div>
-        <div class="detail">💵 Money Received: ${customer.moneyDone ? 'Yes' : 'No'}</div>
+        <div class="customer-header">
+            <img src="logo.jpg">
+            <div>
+                <h2>${customer.name}</h2>
+                <p>${customer.mobile}</p>
+            </div>
+        </div>
+
+        <div class="customer-details">
+            <div class="detail">
+                💰 Price: ₹${customer.price}
+            </div>
+
+            <div class="detail">
+                🛠 Work Done: ${customer.workDone ? 'Yes' : 'No'}
+            </div>
+
+            <div class="detail">
+                💵 Money Received: ${customer.moneyDone ? 'Yes' : 'No'}
+            </div>
+        </div>
 
         <div class="status-buttons">
 
             <button class="work-btn" onclick="toggleWork('${customer.id}', ${customer.workDone})">
-                Work Done
+                ${customer.workDone ? 'Work Completed' : 'Mark Work Done'}
             </button>
 
             <button class="money-btn" onclick="toggleMoney('${customer.id}', ${customer.moneyDone})">
-                Money Done
+                ${customer.moneyDone ? 'Money Received' : 'Money Pending'}
             </button>
 
             <button class="pending-btn" onclick="openDelete('${customer.id}')">
@@ -389,6 +489,7 @@ function renderCustomers(){
             </button>
 
         </div>
+
         `;
 
         customerGrid.appendChild(div);
@@ -462,3 +563,4 @@ onSnapshot(collection(db, 'customers'), (snapshot) => {
 
 </body>
 </html>
+```

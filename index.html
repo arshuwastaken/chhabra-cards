@@ -15,7 +15,41 @@
 }
 
 body{
-    background:#050505;
+    background:url('bg.png') center/cover fixed;
+    color:white;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.78);
+    backdrop-filter:blur(2px);
+    z-index:-2;
+}
+
+.snow{
+    position:fixed;
+    width:10px;
+    height:10px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:fall linear infinite;
+    z-index:-1;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
     color:white;
     min-height:100vh;
 }
@@ -298,6 +332,17 @@ header{
 </head>
 <body>
 
+<div class="snow" style="left:5%; animation-duration:12s; animation-delay:0s;"></div>
+<div class="snow" style="left:15%; animation-duration:16s; animation-delay:2s;"></div>
+<div class="snow" style="left:25%; animation-duration:10s; animation-delay:1s;"></div>
+<div class="snow" style="left:35%; animation-duration:18s; animation-delay:3s;"></div>
+<div class="snow" style="left:45%; animation-duration:14s; animation-delay:5s;"></div>
+<div class="snow" style="left:55%; animation-duration:11s; animation-delay:2s;"></div>
+<div class="snow" style="left:65%; animation-duration:17s; animation-delay:4s;"></div>
+<div class="snow" style="left:75%; animation-duration:13s; animation-delay:1s;"></div>
+<div class="snow" style="left:85%; animation-duration:15s; animation-delay:3s;"></div>
+<div class="snow" style="left:95%; animation-duration:12s; animation-delay:2s;"></div>
+
 <header>
 
     <div class="logo-area">
@@ -307,6 +352,7 @@ header{
 
     <div class="top-buttons">
         <button onclick="openModal()">+ Add Customer</button>
+        <button style="background:#dc2626;" onclick="deleteAllData()">Delete All Data</button>
     </div>
 
 </header>
@@ -371,7 +417,8 @@ import {
     onSnapshot,
     deleteDoc,
     doc,
-    updateDoc
+    updateDoc,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -537,6 +584,21 @@ window.confirmDelete = async () => {
     }
 
     closeConfirm();
+}
+
+window.deleteAllData = async () => {
+
+    const confirmDeleteAll = confirm('Delete all customer data?');
+
+    if(!confirmDeleteAll) return;
+
+    const snapshot = await getDocs(collection(db, 'customers'));
+
+    for (const document of snapshot.docs) {
+        await deleteDoc(doc(db, 'customers', document.id));
+    }
+
+    alert('All customer data deleted');
 }
 
 onSnapshot(collection(db, 'customers'), (snapshot) => {

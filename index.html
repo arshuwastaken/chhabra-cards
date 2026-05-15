@@ -1,624 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chhabra Cards Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chhabra Cards | Premium Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --bg-dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-body{
-    background:url('bg.jpg') center/cover fixed;
-    color:white;
-    min-height:100vh;
-    position:relative;
-    overflow-x:hidden;
-}
+        body {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                        url('bg.jpg') center/cover fixed;
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.78);
-    backdrop-filter:blur(2px);
-    z-index:-2;
-}
+        /* --- Realistic Snow Effect --- */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-.snow{
-    position:fixed;
-    width:10px;
-    height:10px;
-    background:white;
-    border-radius:50%;
-    opacity:0.8;
-    animation:fall linear infinite;
-    z-index:-1;
-}
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(1px);
+            animation: fall linear infinite;
+        }
 
-@keyframes fall{
-    from{
-        transform:translateY(-10vh);
-    }
-    to{
-        transform:translateY(110vh);
-    }
-}
-    color:white;
-    min-height:100vh;
-}
+        @keyframes fall {
+            to { transform: translateY(105vh) translateX(20px); }
+        }
 
-header{
-    width:100%;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#0d0d0d;
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    position:sticky;
-    top:0;
-    z-index:999;
-}
+        /* --- Layout --- */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.logo-area{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-.logo-area img{
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    object-fit:cover;
-}
+        .logo-area img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
 
-.logo-area h1{
-    font-size:22px;
-}
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.top-buttons{
-    display:flex;
-    gap:10px;
-}
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
 
-.top-buttons button{
-    padding:12px 18px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    background:#2563eb;
-    color:white;
-    font-weight:bold;
-    transition:0.3s;
-}
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-.top-buttons button:hover{
-    transform:scale(1.05);
-}
+        /* --- Tabs --- */
+        .menu-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            background: var(--glass);
+            padding: 8px;
+            border-radius: 15px;
+            width: fit-content;
+        }
 
-.container{
-    padding:25px;
-}
+        .tab-btn {
+            padding: 10px 24px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            cursor: pointer;
+            font-weight: 600;
+        }
 
-.menu-tabs{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-bottom:25px;
-}
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
 
-.menu-tabs button{
-    padding:12px 20px;
-    border:none;
-    border-radius:12px;
-    background:#111827;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-    transition:0.3s;
-}
+        /* --- Customer Grid --- */
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 25px;
+        }
 
-.menu-tabs button.active{
-    background:#2563eb;
-}
+        .customer-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            transition: 0.3s;
+        }
 
-.customer-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:20px;
-}
+        .customer-card:hover { border-color: var(--primary); }
 
-.customer-box{
-    background:#111111;
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:18px;
-    padding:20px;
-    position:relative;
-    overflow:hidden;
-}
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-.customer-box::before{
-    content:'';
-    position:absolute;
-    width:150px;
-    height:150px;
-    background:rgba(37,99,235,0.15);
-    border-radius:50%;
-    top:-60px;
-    right:-60px;
-}
+        .card-header .avatar {
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
 
-.customer-header{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:18px;
-}
+        .detail-row {
+            background: rgba(0,0,0,0.2);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
 
-.customer-header img{
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    object-fit:cover;
-}
+        .action-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-.customer-details{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-bottom:20px;
-}
+        /* --- Modern Modals --- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
 
-.detail{
-    background:#1a1a1a;
-    padding:10px;
-    border-radius:10px;
-}
+        .modal-content {
+            background: #1e293b;
+            padding: 35px;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 450px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
 
-.status-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:15px;
-}
+        .modal-content h2 { margin-bottom: 20px; text-align: center; }
 
-.status-buttons button{
-    flex:1;
-    min-width:120px;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: #0f172a;
+            color: white;
+            outline: none;
+        }
 
-.work-btn{
-    background:#9333ea;
-}
+        input:focus { border-color: var(--primary); }
 
-.money-btn{
-    background:#16a34a;
-}
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } }
 
-.pending-btn{
-    background:#dc2626;
-}
-
-.delete-btn{
-    background:#ef4444;
-}
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.7);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:1000;
-}
-
-.modal-content{
-    background:#111827;
-    width:90%;
-    max-width:420px;
-    border-radius:20px;
-    padding:25px;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.modal-content h2{
-    text-align:center;
-}
-
-.modal-content input{
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    background:#1f2937;
-    color:white;
-}
-
-.modal-content button{
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.add-btn{
-    background:#2563eb;
-    color:white;
-}
-
-.cancel-btn{
-    background:#ef4444;
-    color:white;
-}
-
-.confirm-box{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.75);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:2000;
-}
-
-.confirm-content{
-    background:#111827;
-    padding:25px;
-    border-radius:18px;
-    width:90%;
-    max-width:350px;
-    text-align:center;
-}
-
-.confirm-buttons{
-    display:flex;
-    gap:12px;
-    margin-top:20px;
-}
-
-.confirm-buttons button{
-    flex:1;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    color:white;
-    font-weight:bold;
-}
-
-.confirm-delete{
-    background:#dc2626;
-}
-
-.confirm-cancel{
-    background:#374151;
-}
-
-@media(max-width:700px){
-
-    header{
-        flex-direction:column;
-        gap:15px;
-    }
-
-    .top-buttons{
-        width:100%;
-    }
-
-    .top-buttons button{
-        flex:1;
-    }
-
-}
-
-</style>
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 20px; text-align: center; }
+            .menu-tabs { width: 100%; overflow-x: auto; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="snow" style="left:5%; animation-duration:12s; animation-delay:0s;"></div>
-<div class="snow" style="left:15%; animation-duration:16s; animation-delay:2s;"></div>
-<div class="snow" style="left:25%; animation-duration:10s; animation-delay:1s;"></div>
-<div class="snow" style="left:35%; animation-duration:18s; animation-delay:3s;"></div>
-<div class="snow" style="left:45%; animation-duration:14s; animation-delay:5s;"></div>
-<div class="snow" style="left:55%; animation-duration:11s; animation-delay:2s;"></div>
-<div class="snow" style="left:65%; animation-duration:17s; animation-delay:4s;"></div>
-<div class="snow" style="left:75%; animation-duration:13s; animation-delay:1s;"></div>
-<div class="snow" style="left:85%; animation-duration:15s; animation-delay:3s;"></div>
-<div class="snow" style="left:95%; animation-duration:12s; animation-delay:2s;"></div>
+<div id="snow-container"></div>
 
 <header>
-
     <div class="logo-area">
         <img src="logo.png" alt="logo">
         <h1>Chhabra Cards</h1>
     </div>
-
-    <div class="top-buttons">
-        <button onclick="openModal()">+ Add Customer</button>
-        <button style="background:#dc2626;" onclick="deleteAllData()">Delete All Data</button>
+    <div style="display: flex; gap: 12px;">
+        <button class="btn btn-primary" onclick="openModal()">
+            <i class="fa-solid fa-plus"></i> New Customer
+        </button>
+        <button class="btn btn-danger" onclick="deleteAllData()">
+            <i class="fa-solid fa-trash-can"></i> Reset
+        </button>
     </div>
-
 </header>
 
 <div class="container">
-
     <div class="menu-tabs">
-        <button class="active" onclick="filterCustomers('all', this)">All Customers</button>
-        <button onclick="filterCustomers('pending', this)">Money Pending</button>
-        <button onclick="filterCustomers('done', this)">All Done</button>
+        <button class="tab-btn active" onclick="filterCustomers('all', this)">All</button>
+        <button class="tab-btn" onclick="filterCustomers('pending', this)">Pending Payment</button>
+        <button class="tab-btn" onclick="filterCustomers('done', this)">Completed</button>
     </div>
 
-    <div class="customer-grid" id="customerGrid"></div>
-
+    <div class="customer-grid" id="customerGrid">
+        </div>
 </div>
 
 <div class="modal" id="customerModal">
-
     <div class="modal-content">
-
-        <h2>Add Customer</h2>
-
-        <input type="text" id="customerName" placeholder="Customer Name">
-
-        <input type="text" id="customerMobile" placeholder="Mobile Number">
-
-        <input type="number" id="customerPrice" placeholder="Price">
-
-        <button class="add-btn" onclick="addCustomer()">Add Customer</button>
-
-        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-
+        <h2>✨ Add New Entry</h2>
+        <input type="text" id="customerName" placeholder="Customer Full Name">
+        <input type="text" id="customerMobile" placeholder="Contact Number">
+        <input type="number" id="customerPrice" placeholder="Final Deal Amount (₹)">
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="btn btn-primary" style="flex:2" onclick="addCustomer()">Confirm Add</button>
+            <button class="btn btn-danger" style="flex:1" onclick="closeModal()">Cancel</button>
+        </div>
     </div>
-
 </div>
 
-<div class="confirm-box" id="confirmBox">
-
-    <div class="confirm-content">
-
-        <h2>Confirm Delete?</h2>
-
-        <p>Are you sure you want to delete this customer?</p>
-
-        <div class="confirm-buttons">
-            <button class="confirm-delete" onclick="confirmDelete()">Delete</button>
-            <button class="confirm-cancel" onclick="closeConfirm()">Cancel</button>
+<div class="modal" id="confirmBox">
+    <div class="modal-content" style="text-align: center;">
+        <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: var(--danger); margin-bottom: 15px;"></i>
+        <h2>Are you sure?</h2>
+        <p style="color: #94a3b8; margin-bottom: 25px;">This action cannot be undone.</p>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-danger" style="flex:1" onclick="confirmDelete()">Yes, Delete</button>
+            <button class="btn btn-primary" style="flex:1; background: #334155;" onclick="closeConfirm()">Cancel</button>
         </div>
-
     </div>
-
 </div>
 
 <script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    onSnapshot,
-    deleteDoc,
-    doc,
-    updateDoc,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA4YxdiAtTJycGPgSmRWt9Iii9gkjvlfuI",
-  authDomain: "chhabra-cards.firebaseapp.com",
-  projectId: "chhabra-cards",
-  storageBucket: "chhabra-cards.firebasestorage.app",
-  messagingSenderId: "427204441564",
-  appId: "1:427204441564:web:f490107f6c2e50d48c4b19",
-  measurementId: "G-6098W7DVN0"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const customerGrid = document.getElementById('customerGrid');
-
-let currentFilter = 'all';
-let deleteId = null;
-let allCustomers = [];
-
-window.openModal = () => {
-    document.getElementById('customerModal').style.display = 'flex';
-}
-
-window.closeModal = () => {
-    document.getElementById('customerModal').style.display = 'none';
-}
-
-window.addCustomer = async () => {
-
-    const name = document.getElementById('customerName').value;
-    const mobile = document.getElementById('customerMobile').value;
-    const price = document.getElementById('customerPrice').value;
-
-    if(!name || !mobile || !price){
-        alert('Please fill all fields');
-        return;
+    // --- Snow Logic ---
+    const snowContainer = document.getElementById('snow-container');
+    function createSnowflake() {
+        const flake = document.createElement('div');
+        flake.className = 'snowflake';
+        const size = Math.random() * 5 + 2 + 'px';
+        flake.style.width = size;
+        flake.style.height = size;
+        flake.style.left = Math.random() * 100 + 'vw';
+        flake.style.animationDuration = Math.random() * 3 + 4 + 's';
+        flake.style.opacity = Math.random();
+        snowContainer.appendChild(flake);
+        setTimeout(() => flake.remove(), 7000);
     }
+    setInterval(createSnowflake, 200);
 
-    await addDoc(collection(db, 'customers'), {
-        name,
-        mobile,
-        price,
-        workDone:false,
-        moneyDone:false,
-        createdAt:Date.now()
-    });
+    // --- Firebase Logic ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    document.getElementById('customerName').value = '';
-    document.getElementById('customerMobile').value = '';
-    document.getElementById('customerPrice').value = '';
+    const firebaseConfig = {
+        apiKey: "AIzaSyA4YxdiAtTJycGPgSmRWt9Iii9gkjvlfuI",
+        authDomain: "chhabra-cards.firebaseapp.com",
+        projectId: "chhabra-cards",
+        storageBucket: "chhabra-cards.firebasestorage.app",
+        messagingSenderId: "427204441564",
+        appId: "1:427204441564:web:f490107f6c2e50d48c4b19"
+    };
 
-    closeModal();
-}
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const customerGrid = document.getElementById('customerGrid');
+    let currentFilter = 'all';
+    let deleteId = null;
+    let allCustomers = [];
 
-function renderCustomers(){
+    // --- Handlers ---
+    window.openModal = () => document.getElementById('customerModal').style.display = 'flex';
+    window.closeModal = () => document.getElementById('customerModal').style.display = 'none';
+    window.openDelete = (id) => { deleteId = id; document.getElementById('confirmBox').style.display = 'flex'; }
+    window.closeConfirm = () => document.getElementById('confirmBox').style.display = 'none';
 
-    customerGrid.innerHTML = '';
+    window.addCustomer = async () => {
+        const name = document.getElementById('customerName').value;
+        const mobile = document.getElementById('customerMobile').value;
+        const price = document.getElementById('customerPrice').value;
+        if(!name || !mobile || !price) return alert('Please fill everything!');
 
-    let filtered = allCustomers;
-
-    if(currentFilter === 'pending'){
-        filtered = allCustomers.filter(c => c.workDone && !c.moneyDone);
-    }
-
-    if(currentFilter === 'done'){
-        filtered = allCustomers.filter(c => c.workDone && c.moneyDone);
-    }
-
-    filtered.forEach(customer => {
-
-        const div = document.createElement('div');
-        div.className = 'customer-box';
-
-        div.innerHTML = `
-
-        <div class="customer-header">
-            <img src="logo.png">
-            <div>
-                <h2>${customer.name}</h2>
-                <p>${customer.mobile}</p>
-            </div>
-        </div>
-
-        <div class="customer-details">
-            <div class="detail">
-                💰 Price: ₹${customer.price}
-            </div>
-
-            <div class="detail">
-                🛠 Work Done: ${customer.workDone ? 'Yes' : 'No'}
-            </div>
-
-            <div class="detail">
-                💵 Money Received: ${customer.moneyDone ? 'Yes' : 'No'}
-            </div>
-        </div>
-
-        <div class="status-buttons">
-
-            <button class="work-btn" onclick="toggleWork('${customer.id}', ${customer.workDone})">
-                ${customer.workDone ? 'Work Completed' : 'Mark Work Done'}
-            </button>
-
-            <button class="money-btn" onclick="toggleMoney('${customer.id}', ${customer.moneyDone})">
-                ${customer.moneyDone ? 'Money Received' : 'Money Pending'}
-            </button>
-
-            <button class="pending-btn" onclick="openDelete('${customer.id}')">
-                Delete
-            </button>
-
-        </div>
-
-        `;
-
-        customerGrid.appendChild(div);
-
-    });
-}
-
-window.filterCustomers = (type, btn) => {
-
-    currentFilter = type;
-
-    document.querySelectorAll('.menu-tabs button').forEach(button => {
-        button.classList.remove('active');
-    });
-
-    btn.classList.add('active');
-
-    renderCustomers();
-}
-
-window.toggleWork = async (id, current) => {
-
-    await updateDoc(doc(db, 'customers', id), {
-        workDone: !current
-    });
-}
-
-window.toggleMoney = async (id, current) => {
-
-    await updateDoc(doc(db, 'customers', id), {
-        moneyDone: !current
-    });
-}
-
-window.openDelete = (id) => {
-    deleteId = id;
-    document.getElementById('confirmBox').style.display = 'flex';
-}
-
-window.closeConfirm = () => {
-    document.getElementById('confirmBox').style.display = 'none';
-}
-
-window.confirmDelete = async () => {
-
-    if(deleteId){
-        await deleteDoc(doc(db, 'customers', deleteId));
-    }
-
-    closeConfirm();
-}
-
-window.deleteAllData = async () => {
-
-    const confirmDeleteAll = confirm('Delete all customer data?');
-
-    if(!confirmDeleteAll) return;
-
-    const snapshot = await getDocs(collection(db, 'customers'));
-
-    for (const document of snapshot.docs) {
-        await deleteDoc(doc(db, 'customers', document.id));
-    }
-
-    alert('All customer data deleted');
-}
-
-onSnapshot(collection(db, 'customers'), (snapshot) => {
-
-    allCustomers = [];
-
-    snapshot.forEach(docSnap => {
-
-        allCustomers.push({
-            id: docSnap.id,
-            ...docSnap.data()
+        await addDoc(collection(db, 'customers'), {
+            name, mobile, price,
+            workDone: false, moneyDone: false,
+            createdAt: Date.now()
         });
+        closeModal();
+        document.querySelectorAll('input').forEach(i => i.value = '');
+    };
 
+    function renderCustomers() {
+        customerGrid.innerHTML = '';
+        let filtered = allCustomers;
+        if(currentFilter === 'pending') filtered = allCustomers.filter(c => c.workDone && !c.moneyDone);
+        if(currentFilter === 'done') filtered = allCustomers.filter(c => c.workDone && c.moneyDone);
+
+        filtered.forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'customer-card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="avatar">${c.name.charAt(0)}</div>
+                    <div>
+                        <h3>${c.name}</h3>
+                        <p style="color: #94a3b8; font-size: 0.8rem;">${c.mobile}</p>
+                    </div>
+                </div>
+                <div class="detail-row"><span>Total Amount</span><strong>₹${c.price}</strong></div>
+                <div class="detail-row"><span>Work Status</span><strong style="color:${c.workDone?'#22c55e':'#f59e0b'}">${c.workDone?'Finished':'In Progress'}</strong></div>
+                <div class="detail-row"><span>Payment</span><strong style="color:${c.moneyDone?'#22c55e':'#ef4444'}">${c.moneyDone?'Paid':'Pending'}</strong></div>
+                
+                <div class="action-group">
+                    <button class="btn" style="background:${c.workDone?'#334155':'#9333ea'}" onclick="toggleWork('${c.id}', ${c.workDone})">
+                        <i class="fa-solid fa-check"></i> ${c.workDone ? 'Undo' : 'Done'}
+                    </button>
+                    <button class="btn" style="background:${c.moneyDone?'#334155':'#22c55e'}" onclick="toggleMoney('${c.id}', ${c.moneyDone})">
+                        <i class="fa-solid fa-indian-rupee-sign"></i> ${c.moneyDone ? 'Undo' : 'Paid'}
+                    </button>
+                </div>
+                <button class="btn btn-danger" style="width:100%; margin-top:10px; background:transparent; border:1px solid #ef4444; color:#ef4444" onclick="openDelete('${c.id}')">
+                    Delete Entry
+                </button>
+            `;
+            customerGrid.appendChild(card);
+        });
+    }
+
+    window.filterCustomers = (type, btn) => {
+        currentFilter = type;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCustomers();
+    };
+
+    window.toggleWork = async (id, cur) => await updateDoc(doc(db, 'customers', id), { workDone: !cur });
+    window.toggleMoney = async (id, cur) => await updateDoc(doc(db, 'customers', id), { moneyDone: !cur });
+    window.confirmDelete = async () => { if(deleteId) await deleteDoc(doc(db, 'customers', deleteId)); closeConfirm(); };
+    
+    window.deleteAllData = async () => {
+        if(confirm('Warning: This will clear all data forever!')) {
+            const snap = await getDocs(collection(db, 'customers'));
+            snap.forEach(async (d) => await deleteDoc(doc(db, 'customers', d.id)));
+        }
+    };
+
+    onSnapshot(collection(db, 'customers'), (snap) => {
+        allCustomers = snap.docs.map(d => ({id: d.id, ...d.data()}));
+        renderCustomers();
     });
-
-    renderCustomers();
-
-});
-
 </script>
-
 </body>
 </html>

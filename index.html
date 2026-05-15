@@ -27,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* --- Snowfall --- */
         #snow-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
         .snowflake { position: absolute; background: white; border-radius: 50%; opacity: 0.5; filter: blur(1px); animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(105vh) translateX(20px); } }
@@ -50,7 +49,6 @@
 
         .container { max-width: 1400px; margin: 0 auto; padding: 40px 6%; position: relative; z-index: 1; }
 
-        /* --- Floating Search Bar --- */
         .search-container { margin-bottom: 40px; max-width: 600px; position: relative; transition: var(--transition); }
         .search-input { 
             width: 100%; padding: 18px 18px 18px 55px; 
@@ -62,7 +60,6 @@
         .search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.12); transform: scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .search-container i { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 1.2rem; }
 
-        /* --- Hovering Tabs --- */
         .menu-tabs { display: flex; gap: 15px; margin-bottom: 45px; flex-wrap: wrap; }
         .tab-btn { 
             padding: 14px 30px; border: 1px solid var(--glass-border); border-radius: 18px; 
@@ -72,63 +69,56 @@
         .tab-btn:hover { transform: translateY(-3px); color: white; background: rgba(255,255,255,0.15); }
         .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4); }
 
-        /* --- Floating Customer Cards --- */
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 35px; }
         .customer-card { 
             background: var(--glass-bg); border: 1px solid var(--glass-border); 
             border-radius: 30px; padding: 30px; backdrop-filter: var(--glass-blur);
             transition: var(--transition); position: relative; overflow: hidden;
         }
-        .customer-card:hover { transform: translateY(-12px) scale(1.02); border-color: rgba(255,255,255,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .customer-card:hover { transform: translateY(-12px) scale(1.01); border-color: rgba(255,255,255,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 
         .avatar { width: 55px; height: 55px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), #1e40af); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; }
 
         .detail-row { 
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.2); padding: 15px 20px; border-radius: 18px; margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            background: rgba(0,0,0,0.2); padding: 12px 18px; border-radius: 14px; margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; font-size: 0.9rem;
         }
         .customer-card:hover .detail-row { background: rgba(0,0,0,0.3); }
 
-        .btn { padding: 15px 22px; border-radius: 16px; border: none; cursor: pointer; font-weight: 700; transition: var(--transition); font-size: 0.95rem; }
-        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .btn:active { transform: scale(0.95); }
+        .btn { padding: 12px 20px; border-radius: 14px; border: none; cursor: pointer; font-weight: 700; transition: var(--transition); font-size: 0.9rem; }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        .status-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .status-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         
-        .remove-link { 
-            display: block; text-align: center; margin-top: 25px; 
-            color: var(--danger); cursor: pointer; font-size: 0.9rem; 
-            font-weight: 700; opacity: 0.7; transition: 0.3s;
-        }
-        .remove-link:hover { opacity: 1; text-decoration: underline; transform: scale(1.05); }
+        .action-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .remove-link { color: var(--danger); cursor: pointer; font-size: 0.85rem; font-weight: 700; opacity: 0.7; }
+        .edit-link { color: var(--primary); cursor: pointer; font-size: 0.85rem; font-weight: 700; opacity: 0.7; }
+        .remove-link:hover, .edit-link:hover { opacity: 1; text-decoration: underline; }
 
-        /* --- Popups Styling --- */
         .modal { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8); 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); 
             display: none; justify-content: center; align-items: center; z-index: 1000;
-            backdrop-filter: blur(15px); animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(15px); padding: 20px;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         .modal-content { 
-            background: rgba(20, 20, 28, 0.9); border: 1px solid var(--glass-border);
-            padding: 45px; border-radius: 35px; width: 90%; max-width: 450px; 
-            backdrop-filter: blur(30px); text-align: center;
-            transform: scale(0.9); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            background: rgba(20, 20, 28, 0.95); border: 1px solid var(--glass-border);
+            padding: 35px; border-radius: 30px; width: 100%; max-width: 500px; 
+            max-height: 90vh; overflow-y: auto; text-align: center;
         }
-        @keyframes pop { to { transform: scale(1); } }
 
+        .modal-content h2 { margin-bottom: 20px; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px; margin-left: 5px; }
         .modal-content input { 
-            width: 100%; padding: 18px; border-radius: 16px; border: 1px solid var(--glass-border); 
-            background: rgba(0,0,0,0.4); color: white; margin-bottom: 20px; outline: none; font-size: 1rem;
-            transition: 0.3s;
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.4); color: white; outline: none; transition: 0.3s;
         }
-        .modal-content input:focus { border-color: var(--primary); background: rgba(0,0,0,0.6); }
+        .modal-content input:focus { border-color: var(--primary); }
 
         @media(max-width: 650px) { 
             header { flex-direction: column; gap: 20px; } 
-            .top-btns { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
             .customer-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -165,23 +155,44 @@
 
 <div class="modal" id="addModal">
     <div class="modal-content">
-        <h2 style="margin-bottom:25px">✨ New Entry</h2>
-        <input type="text" id="custName" placeholder="Customer Name">
-        <input type="text" id="custMobile" placeholder="Contact Number">
-        <input type="number" id="custPrice" placeholder="Final Price (₹)">
-        <div style="display:flex; gap:15px">
+        <h2>✨ New Entry</h2>
+        <div class="input-group"><input type="text" id="custName" placeholder="Customer Name"></div>
+        <div class="input-group"><input type="text" id="custMobile" placeholder="Contact Number"></div>
+        <div class="input-group"><input type="number" id="custPrice" placeholder="Final Price (₹)"></div>
+        <div class="input-group"><label>(Optional) Advance 1</label><input type="number" id="adv1" placeholder="₹ Amount"></div>
+        <div class="input-group"><label>(Optional) Advance 2</label><input type="number" id="adv2" placeholder="₹ Amount"></div>
+        <div class="input-group"><label>(Optional) Advance 3</label><input type="number" id="adv3" placeholder="₹ Amount"></div>
+        
+        <div style="display:flex; gap:10px; margin-top:20px">
             <button class="btn" style="background:var(--primary); flex:1; color:white" onclick="addCustomer()">Save Order</button>
             <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('addModal')">Cancel</button>
         </div>
     </div>
 </div>
 
+<div class="modal" id="editModal">
+    <div class="modal-content">
+        <h2>📝 Edit Details</h2>
+        <input type="hidden" id="editId">
+        <div class="input-group"><label>Name</label><input type="text" id="editName"></div>
+        <div class="input-group"><label>Mobile</label><input type="text" id="editMobile"></div>
+        <div class="input-group"><label>Total Price (₹)</label><input type="number" id="editPrice"></div>
+        <div class="input-group"><label>(Optional) Advance 1</label><input type="number" id="editAdv1"></div>
+        <div class="input-group"><label>(Optional) Advance 2</label><input type="number" id="editAdv2"></div>
+        <div class="input-group"><label>(Optional) Advance 3</label><input type="number" id="editAdv3"></div>
+        
+        <div style="display:flex; gap:10px; margin-top:20px">
+            <button class="btn" style="background:var(--success); flex:1; color:white" onclick="saveEdit()">Update Details</button>
+            <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('editModal')">Cancel</button>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="confirmDeleteModal">
     <div class="modal-content">
-        <i class="fa-solid fa-trash-can" style="font-size: 3rem; color: var(--danger); margin-bottom: 20px;"></i>
         <h2 style="color:var(--danger)">Delete Order?</h2>
-        <p style="margin-bottom: 30px; color: #94a3b8;">This will remove the customer permanently.</p>
-        <div style="display:flex; gap:15px">
+        <p style="margin-bottom: 25px; color: #94a3b8;">This record will be removed forever.</p>
+        <div style="display:flex; gap:10px">
             <button class="btn" style="background:var(--danger); flex:1; color:white" id="confirmDelBtn">Delete</button>
             <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('confirmDeleteModal')">Back</button>
         </div>
@@ -190,11 +201,10 @@
 
 <div class="modal" id="confirmAllModal">
     <div class="modal-content">
-        <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: var(--danger); margin-bottom: 20px;"></i>
         <h2 style="color:var(--danger)">Wipe Everything?</h2>
-        <p style="margin-bottom: 30px; color: #94a3b8;">Are you sure you want to delete all records?</p>
-        <div style="display:flex; gap:15px">
-            <button class="btn" style="background:var(--danger); flex:1; color:white" onclick="deleteAllData()">Reset Now</button>
+        <p style="margin-bottom: 25px; color: #94a3b8;">Delete all records?</p>
+        <div style="display:flex; gap:10px">
+            <button class="btn" style="background:var(--danger); flex:1; color:white" onclick="deleteAllData()">Reset</button>
             <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('confirmAllModal')">Cancel</button>
         </div>
     </div>
@@ -244,13 +254,17 @@
         const name = document.getElementById('custName').value;
         const mobile = document.getElementById('custMobile').value;
         const price = document.getElementById('custPrice').value;
-        if(!name || !price) return;
+        const adv1 = document.getElementById('adv1').value || 0;
+        const adv2 = document.getElementById('adv2').value || 0;
+        const adv3 = document.getElementById('adv3').value || 0;
+
+        if(!name || !price) return alert("Name and Price are required!");
         
         await addDoc(collection(db, 'customers'), {
-            name, mobile, price, workDone: false, moneyDone: false, createdAt: Date.now()
+            name, mobile, price, adv1, adv2, adv3, workDone: false, moneyDone: false, createdAt: Date.now()
         });
         closeModal('addModal');
-        document.querySelectorAll('input').forEach(i => i.value = '');
+        document.querySelectorAll('#addModal input').forEach(i => i.value = '');
     };
 
     window.render = () => {
@@ -266,25 +280,58 @@
             const card = document.createElement('div');
             card.className = 'customer-card';
             card.innerHTML = `
-                <div style="display:flex; align-items:center; gap:18px; margin-bottom:25px">
+                <div style="display:flex; align-items:center; gap:18px; margin-bottom:20px">
                     <div class="avatar">${c.name[0].toUpperCase()}</div>
                     <div>
-                        <h3 style="font-size:1.3rem; font-weight:700">${c.name}</h3>
-                        <p style="color:#94a3b8; font-size:0.9rem">${c.mobile || 'No Contact'}</p>
+                        <h3 style="font-weight:700">${c.name}</h3>
+                        <p style="color:#94a3b8; font-size:0.85rem">${c.mobile || 'No Contact'}</p>
                     </div>
                 </div>
-                <div class="detail-row"><span>Order Price</span><strong>₹${c.price}</strong></div>
-                <div class="detail-row"><span>Work Status</span><strong style="color:${c.workDone? 'var(--success)' : '#f59e0b'}">${c.workDone?'✅ Printed':'⏳ Printing'}</strong></div>
-                <div class="detail-row"><span>Payment</span><strong style="color:${c.moneyDone? 'var(--success)' : 'var(--danger)'}">${c.moneyDone?'✅ Paid':'❌ Pending'}</strong></div>
+                <div class="detail-row"><span>Total Price</span><strong>₹${c.price}</strong></div>
+                ${c.adv1 > 0 ? `<div class="detail-row"><span>Advance 1</span><strong style="color:var(--success)">₹${c.adv1}</strong></div>` : ''}
+                ${c.adv2 > 0 ? `<div class="detail-row"><span>Advance 2</span><strong style="color:var(--success)">₹${c.adv2}</strong></div>` : ''}
+                ${c.adv3 > 0 ? `<div class="detail-row"><span>Advance 3</span><strong style="color:var(--success)">₹${c.adv3}</strong></div>` : ''}
+                
+                <div class="detail-row"><span>Work Status</span><strong style="color:${c.workDone? 'var(--success)' : '#f59e0b'}">${c.workDone?'Printed':'Printing'}</strong></div>
+                <div class="detail-row"><span>Payment</span><strong style="color:${c.moneyDone? 'var(--success)' : 'var(--danger)'}">${c.moneyDone?'Paid':'Pending'}</strong></div>
                 
                 <div class="status-btns">
                     <button class="btn" style="background:${c.workDone?'rgba(255,255,255,0.1)':'#6366f1'}; color:white" onclick="updateStatus('${c.id}', 'workDone', ${c.workDone})">${c.workDone?'Undo':'Done'}</button>
                     <button class="btn" style="background:${c.moneyDone?'rgba(255,255,255,0.1)':'var(--success)'}; color:white" onclick="updateStatus('${c.id}', 'moneyDone', ${c.moneyDone})">${c.moneyDone?'Undo':'Paid'}</button>
                 </div>
-                <span class="remove-link" onclick="triggerDelete('${c.id}')">Remove Customer</span>
+                <div class="action-links">
+                    <span class="edit-link" onclick="openEditModal('${c.id}')"><i class="fa-solid fa-pen"></i> Edit</span>
+                    <span class="remove-link" onclick="triggerDelete('${c.id}')"><i class="fa-solid fa-trash"></i> Remove</span>
+                </div>
             `;
             grid.appendChild(card);
         });
+    };
+
+    window.openEditModal = (id) => {
+        const c = allData.find(item => item.id === id);
+        document.getElementById('editId').value = c.id;
+        document.getElementById('editName').value = c.name;
+        document.getElementById('editMobile').value = c.mobile;
+        document.getElementById('editPrice').value = c.price;
+        document.getElementById('editAdv1').value = c.adv1;
+        document.getElementById('editAdv2').value = c.adv2;
+        document.getElementById('editAdv3').value = c.adv3;
+        openModal('editModal');
+    };
+
+    window.saveEdit = async () => {
+        const id = document.getElementById('editId').value;
+        const updateObj = {
+            name: document.getElementById('editName').value,
+            mobile: document.getElementById('editMobile').value,
+            price: document.getElementById('editPrice').value,
+            adv1: document.getElementById('editAdv1').value || 0,
+            adv2: document.getElementById('editAdv2').value || 0,
+            adv3: document.getElementById('editAdv3').value || 0,
+        };
+        await updateDoc(doc(db, 'customers', id), updateObj);
+        closeModal('editModal');
     };
 
     window.triggerDelete = (id) => { deleteTargetId = id; openModal('confirmDeleteModal'); };

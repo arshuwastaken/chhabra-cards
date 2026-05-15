@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chhabra Flex Prints | Dashboard</title>
+    <title>Chhabra Flex Prints | Smart Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -11,117 +11,124 @@
         :root {
             --primary: #3b82f6;
             --danger: #ef4444;
-            --success: #22c55e;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --success: #10b981;
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --glass-blur: blur(20px);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg') center/cover fixed;
-            color: #f8fafc;
+            color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* --- Realistic Snow --- */
+        /* --- Snowfall --- */
         #snow-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-        .snowflake { position: absolute; background: white; border-radius: 50%; opacity: 0.6; filter: blur(1px); animation: fall linear infinite; }
-        @keyframes fall { to { transform: translateY(105vh) translateX(15px); } }
+        .snowflake { position: absolute; background: white; border-radius: 50%; opacity: 0.5; filter: blur(1px); animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(105vh) translateX(20px); } }
 
         header {
             padding: 20px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45);
             backdrop-filter: var(--glass-blur);
             border-bottom: 1px solid var(--glass-border);
             position: sticky; top: 0; z-index: 100;
         }
 
         .logo-area { display: flex; align-items: center; gap: 15px; }
-        .logo-area h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; }
-        .logo-area img { width: 45px; height: 45px; border-radius: 12px; border: 1px solid var(--glass-border); }
+        .logo-area h1 { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-area img { width: 45px; height: 45px; border-radius: 12px; border: 1px solid var(--glass-border); transition: var(--transition); }
+        .logo-area:hover img { transform: rotate(10deg) scale(1.1); }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 40px 6%; position: relative; z-index: 1; }
 
-        /* --- Search Bar Spacing --- */
-        .search-container { margin-bottom: 35px; max-width: 550px; position: relative; }
+        /* --- Floating Search Bar --- */
+        .search-container { margin-bottom: 40px; max-width: 600px; position: relative; transition: var(--transition); }
         .search-input { 
-            width: 100%; padding: 16px 16px 16px 52px; 
-            border-radius: 18px; border: 1px solid var(--glass-border); 
+            width: 100%; padding: 18px 18px 18px 55px; 
+            border-radius: 20px; border: 1px solid var(--glass-border); 
             background: var(--glass-bg); color: white; outline: none;
             backdrop-filter: var(--glass-blur); font-size: 1rem;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition);
         }
-        .search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.12); }
-        .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 1.1rem; }
+        .search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.12); transform: scale(1.02); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .search-container i { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 1.2rem; }
 
-        /* --- Tabs Spacing --- */
-        .menu-tabs { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        /* --- Hovering Tabs --- */
+        .menu-tabs { display: flex; gap: 15px; margin-bottom: 45px; flex-wrap: wrap; }
         .tab-btn { 
-            padding: 14px 28px; border: 1px solid var(--glass-border); border-radius: 16px; 
-            background: var(--glass-bg); color: #cbd5e1; cursor: pointer; font-weight: 600;
-            backdrop-filter: var(--glass-blur); transition: 0.3s;
+            padding: 14px 30px; border: 1px solid var(--glass-border); border-radius: 18px; 
+            background: var(--glass-bg); color: #94a3b8; cursor: pointer; font-weight: 600;
+            backdrop-filter: var(--glass-blur); transition: var(--transition);
         }
-        .tab-btn:hover { background: rgba(255,255,255,0.15); }
-        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3); }
+        .tab-btn:hover { transform: translateY(-3px); color: white; background: rgba(255,255,255,0.15); }
+        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4); }
 
-        /* --- Cards - No Congestion --- */
-        .customer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
+        /* --- Floating Customer Cards --- */
+        .customer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 35px; }
         .customer-card { 
             background: var(--glass-bg); border: 1px solid var(--glass-border); 
-            border-radius: 28px; padding: 28px; backdrop-filter: var(--glass-blur);
-            transition: 0.3s transform ease;
+            border-radius: 30px; padding: 30px; backdrop-filter: var(--glass-blur);
+            transition: var(--transition); position: relative; overflow: hidden;
         }
-        .customer-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); }
+        .customer-card:hover { transform: translateY(-12px) scale(1.02); border-color: rgba(255,255,255,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 
-        .card-profile { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .avatar { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--primary), #1d4ed8); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .avatar { width: 55px; height: 55px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), #1e40af); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; }
 
         .detail-row { 
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.25); padding: 14px 18px; border-radius: 16px; margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.2); padding: 15px 20px; border-radius: 18px; margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
         }
-        .detail-row span { color: #94a3b8; font-size: 0.9rem; font-weight: 500; }
-        .detail-row strong { font-size: 1rem; color: #f8fafc; }
+        .customer-card:hover .detail-row { background: rgba(0,0,0,0.3); }
 
-        .btn { padding: 14px 20px; border-radius: 14px; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; font-size: 0.9rem; }
-        .status-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 25px; }
+        .btn { padding: 15px 22px; border-radius: 16px; border: none; cursor: pointer; font-weight: 700; transition: var(--transition); font-size: 0.95rem; }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn:active { transform: scale(0.95); }
+
+        .status-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         
-        /* --- Popups --- */
-        .modal { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.75); 
-            display: none; justify-content: center; align-items: center; z-index: 1000;
-            backdrop-filter: blur(12px);
-        }
-        .modal-content { 
-            background: rgba(25, 25, 35, 0.85); border: 1px solid var(--glass-border);
-            padding: 40px; border-radius: 32px; width: 90%; max-width: 440px; 
-            backdrop-filter: blur(25px); text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-        .modal-content h2 { margin-bottom: 25px; font-weight: 700; }
-        .modal-content input { 
-            width: 100%; padding: 16px; border-radius: 14px; border: 1px solid var(--glass-border); 
-            background: rgba(0,0,0,0.3); color: white; margin-bottom: 18px; outline: none; font-size: 1rem;
-        }
-
         .remove-link { 
-            display: block; text-align: center; margin-top: 20px; 
-            color: var(--danger); cursor: pointer; font-size: 0.85rem; 
-            font-weight: 700; opacity: 0.8; transition: 0.3s;
+            display: block; text-align: center; margin-top: 25px; 
+            color: var(--danger); cursor: pointer; font-size: 0.9rem; 
+            font-weight: 700; opacity: 0.7; transition: 0.3s;
         }
-        .remove-link:hover { opacity: 1; text-decoration: underline; }
+        .remove-link:hover { opacity: 1; text-decoration: underline; transform: scale(1.05); }
+
+        /* --- Popups Styling --- */
+        .modal { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); 
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+            backdrop-filter: blur(15px); animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .modal-content { 
+            background: rgba(20, 20, 28, 0.9); border: 1px solid var(--glass-border);
+            padding: 45px; border-radius: 35px; width: 90%; max-width: 450px; 
+            backdrop-filter: blur(30px); text-align: center;
+            transform: scale(0.9); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes pop { to { transform: scale(1); } }
+
+        .modal-content input { 
+            width: 100%; padding: 18px; border-radius: 16px; border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.4); color: white; margin-bottom: 20px; outline: none; font-size: 1rem;
+            transition: 0.3s;
+        }
+        .modal-content input:focus { border-color: var(--primary); background: rgba(0,0,0,0.6); }
 
         @media(max-width: 650px) { 
-            header { flex-direction: column; gap: 20px; text-align: center; } 
+            header { flex-direction: column; gap: 20px; } 
             .top-btns { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-            .container { padding: 25px 5%; }
             .customer-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -136,7 +143,7 @@
         <h1>Chhabra Flex Prints</h1>
     </div>
     <div class="top-btns">
-        <button class="btn" style="background: var(--primary); color:white; box-shadow: 0 4px 15px rgba(37,99,235,0.3);" onclick="openModal('addModal')">+ New Order</button>
+        <button class="btn" style="background: var(--primary); color:white" onclick="openModal('addModal')">+ New Order</button>
         <button class="btn" style="background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); color: var(--danger)" onclick="openModal('confirmAllModal')">Reset All</button>
     </div>
 </header>
@@ -158,12 +165,12 @@
 
 <div class="modal" id="addModal">
     <div class="modal-content">
-        <h2>✨ Create New Order</h2>
+        <h2 style="margin-bottom:25px">✨ New Entry</h2>
         <input type="text" id="custName" placeholder="Customer Name">
         <input type="text" id="custMobile" placeholder="Contact Number">
-        <input type="number" id="custPrice" placeholder="Price (₹)">
-        <div style="display:flex; gap:12px">
-            <button class="btn" style="background:var(--primary); flex:1; color:white" onclick="addCustomer()">Confirm Order</button>
+        <input type="number" id="custPrice" placeholder="Final Price (₹)">
+        <div style="display:flex; gap:15px">
+            <button class="btn" style="background:var(--primary); flex:1; color:white" onclick="addCustomer()">Save Order</button>
             <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('addModal')">Cancel</button>
         </div>
     </div>
@@ -171,21 +178,23 @@
 
 <div class="modal" id="confirmDeleteModal">
     <div class="modal-content">
-        <h2 style="color:var(--danger)">Delete Entry?</h2>
-        <p style="margin-bottom: 25px; color: #94a3b8;">This action cannot be undone. Remove this customer?</p>
-        <div style="display:flex; gap:12px">
-            <button class="btn" style="background:var(--danger); flex:1; color:white" id="confirmDelBtn">Yes, Delete</button>
-            <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('confirmDeleteModal')">Cancel</button>
+        <i class="fa-solid fa-trash-can" style="font-size: 3rem; color: var(--danger); margin-bottom: 20px;"></i>
+        <h2 style="color:var(--danger)">Delete Order?</h2>
+        <p style="margin-bottom: 30px; color: #94a3b8;">This will remove the customer permanently.</p>
+        <div style="display:flex; gap:15px">
+            <button class="btn" style="background:var(--danger); flex:1; color:white" id="confirmDelBtn">Delete</button>
+            <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('confirmDeleteModal')">Back</button>
         </div>
     </div>
 </div>
 
 <div class="modal" id="confirmAllModal">
     <div class="modal-content">
-        <h2 style="color:var(--danger)">Wipe Dashboard?</h2>
-        <p style="margin-bottom: 25px; color: #94a3b8;">Are you sure? All orders will be permanently deleted.</p>
-        <div style="display:flex; gap:12px">
-            <button class="btn" style="background:var(--danger); flex:1; color:white" onclick="deleteAllData()">Reset Dashboard</button>
+        <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: var(--danger); margin-bottom: 20px;"></i>
+        <h2 style="color:var(--danger)">Wipe Everything?</h2>
+        <p style="margin-bottom: 30px; color: #94a3b8;">Are you sure you want to delete all records?</p>
+        <div style="display:flex; gap:15px">
+            <button class="btn" style="background:var(--danger); flex:1; color:white" onclick="deleteAllData()">Reset Now</button>
             <button class="btn" style="background:rgba(255,255,255,0.1); flex:1; color:white" onclick="closeModal('confirmAllModal')">Cancel</button>
         </div>
     </div>
@@ -210,6 +219,7 @@
     let currentTab = 'all';
     let deleteTargetId = null;
 
+    // Snow logic
     setInterval(() => {
         const s = document.createElement('div');
         s.className = 'snowflake';
@@ -218,12 +228,9 @@
         s.style.animationDuration = Math.random() * 3 + 5 + 's';
         document.getElementById('snow-container').appendChild(s);
         setTimeout(() => s.remove(), 7000);
-    }, 300);
+    }, 350);
 
-    window.openModal = (id) => {
-        const m = document.getElementById(id);
-        m.style.display = 'flex';
-    };
+    window.openModal = (id) => document.getElementById(id).style.display = 'flex';
     window.closeModal = (id) => document.getElementById(id).style.display = 'none';
 
     window.setTab = (t, btn) => {
@@ -240,9 +247,7 @@
         if(!name || !price) return;
         
         await addDoc(collection(db, 'customers'), {
-            name, mobile, price,
-            workDone: false, moneyDone: false,
-            createdAt: Date.now()
+            name, mobile, price, workDone: false, moneyDone: false, createdAt: Date.now()
         });
         closeModal('addModal');
         document.querySelectorAll('input').forEach(i => i.value = '');
@@ -261,32 +266,28 @@
             const card = document.createElement('div');
             card.className = 'customer-card';
             card.innerHTML = `
-                <div class="card-profile">
+                <div style="display:flex; align-items:center; gap:18px; margin-bottom:25px">
                     <div class="avatar">${c.name[0].toUpperCase()}</div>
                     <div>
-                        <h3 style="font-size:1.2rem; font-weight:700">${c.name}</h3>
-                        <p style="color:#94a3b8; font-size:0.85rem">${c.mobile || 'No contact'}</p>
+                        <h3 style="font-size:1.3rem; font-weight:700">${c.name}</h3>
+                        <p style="color:#94a3b8; font-size:0.9rem">${c.mobile || 'No Contact'}</p>
                     </div>
                 </div>
-                <div class="detail-row"><span>Price</span><strong>₹${c.price}</strong></div>
-                <div class="detail-row"><span>Work Status</span><strong style="color:${c.workDone? 'var(--success)' : '#f59e0b'}">${c.workDone?'✅ Ready':'⏳ Processing'}</strong></div>
-                <div class="detail-row"><span>Payment</span><strong style="color:${c.moneyDone? 'var(--success)' : 'var(--danger)'}">${c.moneyDone?'✅ Received':'❌ Unpaid'}</strong></div>
+                <div class="detail-row"><span>Order Price</span><strong>₹${c.price}</strong></div>
+                <div class="detail-row"><span>Work Status</span><strong style="color:${c.workDone? 'var(--success)' : '#f59e0b'}">${c.workDone?'✅ Printed':'⏳ Printing'}</strong></div>
+                <div class="detail-row"><span>Payment</span><strong style="color:${c.moneyDone? 'var(--success)' : 'var(--danger)'}">${c.moneyDone?'✅ Paid':'❌ Pending'}</strong></div>
                 
                 <div class="status-btns">
-                    <button class="btn" style="background:${c.workDone?'rgba(255,255,255,0.1)':'#7c3aed'}; color:white" onclick="updateStatus('${c.id}', 'workDone', ${c.workDone})">${c.workDone?'Undo':'Done'}</button>
+                    <button class="btn" style="background:${c.workDone?'rgba(255,255,255,0.1)':'#6366f1'}; color:white" onclick="updateStatus('${c.id}', 'workDone', ${c.workDone})">${c.workDone?'Undo':'Done'}</button>
                     <button class="btn" style="background:${c.moneyDone?'rgba(255,255,255,0.1)':'var(--success)'}; color:white" onclick="updateStatus('${c.id}', 'moneyDone', ${c.moneyDone})">${c.moneyDone?'Undo':'Paid'}</button>
                 </div>
-                <span class="remove-link" onclick="triggerDelete('${c.id}')">Remove Entry</span>
+                <span class="remove-link" onclick="triggerDelete('${c.id}')">Remove Customer</span>
             `;
             grid.appendChild(card);
         });
     };
 
-    window.triggerDelete = (id) => {
-        deleteTargetId = id;
-        openModal('confirmDeleteModal');
-    };
-
+    window.triggerDelete = (id) => { deleteTargetId = id; openModal('confirmDeleteModal'); };
     document.getElementById('confirmDelBtn').onclick = async () => {
         if(deleteTargetId) await deleteDoc(doc(db, 'customers', deleteTargetId));
         closeModal('confirmDeleteModal');

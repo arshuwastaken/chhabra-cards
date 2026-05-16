@@ -288,9 +288,9 @@
                     </div>
                 </div>
                 <div class="detail-row"><span>Total Price</span><strong>₹${c.price}</strong></div>
-                ${c.adv1 > 0 ? `<div class="detail-row"><span>Advance 1</span><strong style="color:var(--success)">₹${c.adv1}</strong></div>` : ''}
-                ${c.adv2 > 0 ? `<div class="detail-row"><span>Advance 2</span><strong style="color:var(--success)">₹${c.adv2}</strong></div>` : ''}
-                ${c.adv3 > 0 ? `<div class="detail-row"><span>Advance 3</span><strong style="color:var(--success)">₹${c.adv3}</strong></div>` : ''}
+                <div class="detail-row"><span>Advance 1</span><strong style="color:var(--success)">₹${c.adv1 || 0}</strong></div>
+                <div class="detail-row"><span>Advance 2</span><strong style="color:var(--success)">₹${c.adv2 || 0}</strong></div>
+                <div class="detail-row"><span>Advance 3</span><strong style="color:var(--success)">₹${c.adv3 || 0}</strong></div>
                 
                 <div class="detail-row"><span>Work Status</span><strong style="color:${c.workDone? 'var(--success)' : '#f59e0b'}">${c.workDone?'Printed':'Printing'}</strong></div>
                 <div class="detail-row"><span>Payment</span><strong style="color:${c.moneyDone? 'var(--success)' : 'var(--danger)'}">${c.moneyDone?'Paid':'Pending'}</strong></div>
@@ -314,9 +314,9 @@
         document.getElementById('editName').value = c.name;
         document.getElementById('editMobile').value = c.mobile;
         document.getElementById('editPrice').value = c.price;
-        document.getElementById('editAdv1').value = c.adv1;
-        document.getElementById('editAdv2').value = c.adv2;
-        document.getElementById('editAdv3').value = c.adv3;
+        document.getElementById('editAdv1').value = c.adv1 || 0;
+        document.getElementById('editAdv2').value = c.adv2 || 0;
+        document.getElementById('editAdv3').value = c.adv3 || 0;
         openModal('editModal');
     };
 
